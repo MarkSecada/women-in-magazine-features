@@ -1,0 +1,43 @@
+```{r}
+library(readr)
+library(readxl)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+df <- read_xlsx('women-in-feature-writing.xlsx', sheet = 1)
+```
+
+```{r}
+df %>%
+  group_by(Gender) %>%
+  summarise(count = n()) %>%
+  mutate(percent = count / sum(count))
+```
+
+```{r}
+df %>%
+  filter(Winner == 1) %>%
+  group_by(Gender) %>%
+  summarise(count = n()) %>%
+  mutate(percent = count / sum(count))
+```
+
+```{r}
+df %>%
+  group_by(Gender) %>%
+  summarise(count = n()) %>%
+  mutate(percent = count / sum(count))
+```
+
+```{r}
+df %>%
+  group_by(Year, Gender) %>%
+  summarise(count = n()) %>%
+  mutate(percent = count / sum(count)) %>%
+  ungroup() %>%
+  filter(Gender == 'F') %>%
+  ggplot(aes(Year, percent)) +
+  geom_col() 
+```
